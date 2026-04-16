@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spring-robot
+  name: spring-robot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-robot
+  template:
+    metadata:
+      labels:
+        app: spring-robot
+    spec:
+      containers:
+      - name: spring-robot
+        image: 82mtanveer/myrepo:spring-robot_v1
+        imagePullPolicy: Always
+        ports:
+        - name: springport
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-robot
+  labels:
+    app: spring-robot
+spec:
+  selector:
+    app: spring-robot
+  ports:
+  - name: spring-robot
+    protocol: TCP
+    port: 8080
+    targetPort: springport
+  type: LoadBalancer
