@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: spring-robot
+  name: springboot-robot
   namespace: argocd
 spec:
   destination:
@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: Kubernetes
-    repoURL: https://github.com/mtanveer2016/spring-robot
+    repoURL: https://github.com/mtanveer2016/springboot-robot
     targetRevision: main
   syncPolicy:
     automated:
